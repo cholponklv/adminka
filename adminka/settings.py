@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'user'
+    'user',
+    'project'
 ]
 
 MIDDLEWARE = [
@@ -84,7 +85,7 @@ AUTH_USER_MODEL = 'user.User'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'adminka',
+        'NAME': 'adminka3',
         'USER': 'cholponklv',
         'HOST': 'localhost',
         'PORT': '5432',
@@ -111,12 +112,31 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': "Adminka API's",
+    'DESCRIPTION': 'Adminka description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+
+}
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=7),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
     'SLIDING_TOKEN_LIFETIME': timedelta(days=7),
     'SLIDING_TOKEN_REFRESH_LIFETIME_ALTERNATIVE': timedelta(days=30),
     'SLIDING_TOKEN_ALTERNATIVE_REFRESH_LIFETIME': timedelta(days=120),
+}
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
