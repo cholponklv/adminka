@@ -17,8 +17,7 @@ class Project(models.Model):
     master_plan = models.ManyToManyField('MasterPlan',blank=True)
     video = models.URLField()
     photo = models.ManyToManyField('Photo', blank=True)
-    price_list = models.ManyToManyField('PriceList',blank=True,null=True)
-    design = models.ManyToManyField('Design',blank=True,null=True)
+    
 
 class Bedroom(models.Model):
     count = models.IntegerField()
@@ -47,6 +46,8 @@ class PriceList(models.Model):
     villa = models.IntegerField()
     price = models.IntegerField()
     design = models.ForeignKey('Design',on_delete=models.CASCADE,blank=True)
+    project = models.ForeignKey('Project',on_delete=models.CASCADE,blank=True,null=True)
+
 
 class Type(models.Model):
     title = models.CharField(max_length=100)
@@ -61,6 +62,7 @@ class Design(models.Model):
     description = models.TextField()
     video = models.URLField()
     photo = models.ManyToManyField('PhotoDesign', blank=True)
+    project = models.ForeignKey('Project',on_delete=models.CASCADE,blank=True,null=True)
 
 class PhotoDesign(models.Model):
     photo = models.ImageField(upload_to='photo_design/')
