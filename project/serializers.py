@@ -49,7 +49,7 @@ class PhotoDesignSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class DesignSerializer(serializers.ModelSerializer):
-    photo = PhotoDesignSerializer(many=True, read_only=True)
+    photo = PhotoDesignSerializer(many=True)
 
     class Meta:
         model = Design
@@ -59,7 +59,11 @@ class DesignSerializer(serializers.ModelSerializer):
         representation = super().to_representation(instance)
         representation['photo'] = PhotoDesignSerializer(instance.photo.all(), many=True).data
         return representation
-    
+
+class DesignSerializer2(serializers.ModelSerializer):
+    class Meta:
+        model = Design
+        fields = '__all__'   
 
 
 class PriceListSerializer(serializers.ModelSerializer):

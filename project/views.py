@@ -3,7 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import viewsets
 from .models import Project, Bedroom, Characteristic, MasterPlan, Photo, PriceList, Type, TypePhoto, Design, PhotoDesign
-from .serializers import ProjectSerializer, BedroomSerializer, CharacteristicSerializer, MasterPlanSerializer, PhotoSerializer, PriceListSerializer, TypeSerializer, TypePhotoSerializer, DesignSerializer, PhotoDesignSerializer
+from .serializers import ProjectSerializer, BedroomSerializer, CharacteristicSerializer, MasterPlanSerializer, PhotoSerializer, PriceListSerializer, TypeSerializer, TypePhotoSerializer, DesignSerializer, PhotoDesignSerializer,DesignSerializer2
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
@@ -78,7 +78,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
         project = self.get_object()
         data = request.data.copy()
         data['project'] = project.id
-        serializer = DesignSerializer(data=data)
+        serializer = DesignSerializer2(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
