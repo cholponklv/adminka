@@ -34,6 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    email_token = models.CharField(editable=False, max_length=6, null=True, blank=True)
     objects = MyCustomUserManger()
 
     USERNAME_FIELD = 'email'
