@@ -11,7 +11,7 @@ from django.contrib.auth.hashers import check_password
 import secrets
 from rest_framework_simplejwt.tokens import RefreshToken
 from .permissions import IsSuperUser
-
+from drf_spectacular.utils import extend_schema
 
 
 class AddStaffUserViewSet(viewsets.ModelViewSet):
@@ -41,6 +41,14 @@ class AddStaffUserViewSet(viewsets.ModelViewSet):
     
 
 class ChangePasswordView(APIView):
+    permission_classes = []
+        
+    @extend_schema(
+        description="Change password",
+        request=ChangePasswordSerializer,
+        responses={200: {"message": "Password successfully changed"}}
+    )
+
     def post(self, request):
         serializer = ChangePasswordSerializer(data=request.data)
         if serializer.is_valid():
@@ -58,8 +66,15 @@ class ChangePasswordView(APIView):
         
 
 class SendTokenToRecoverView(APIView):
+    permission_classes = []
+
+    @extend_schema(
+        description="Send Token to recover",
+        request=SendMailToRecoverSerializer,
+        responses={200: {"message": "Token successfully sended"}}
+    )
+
     def post(self, request):
-        permission_classes = []
         serializer = SendMailToRecoverSerializer(data = request.data)
         if serializer.is_valid():
             email = serializer.validated_data['email']
@@ -82,14 +97,19 @@ class SendTokenToRecoverView(APIView):
     
 
 class CheckRecoverTokenView(APIView):
+    permission_classes = []
+    @extend_schema(
+        description="Check token",
+        request=CheckRecoverTokenSerializer,
+        responses={200: {"message": "Token successfully checked"}}
+    )
     def post(self, request):
-        permission_classes = []
         serializer = CheckRecoverTokenSerializer(data = request.data)
         if serializer.is_valid():
             ver_code = serializer.validated_data['token']
             try:
                 user = User.objects.filter(email_token = ver_code).first()
-                user.email_token = ''
+
             except User.DoesNotExist:
                 return Response({"message": "неправильный токен"})
             
@@ -98,8 +118,13 @@ class CheckRecoverTokenView(APIView):
 
 
 class OldUserToNew(APIView):
+    permission_classes = []
+    @extend_schema(
+        description="Change password",
+        request=OldUserToNewSerializer,
+        responses={200: {"message": "Password successfully changed"}}
+    )
     def post(self, request):
-        permission_classes = []
         serializer = OldUserToNewSerializer(data = request.data)
         if serializer.is_valid():
             name = serializer.validated_data['name']

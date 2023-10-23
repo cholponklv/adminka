@@ -28,7 +28,7 @@ class MyCustomUserManger(BaseUserManager):
     
 class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=100)
-    password = models.CharField(max_length=100, blank=True, null=True)
+    password = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     photo = models.ImageField(upload_to='profile', default='profile/ava.png')
     is_active = models.BooleanField(default=True)
