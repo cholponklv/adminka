@@ -1,13 +1,10 @@
 from rest_framework import serializers
-from .models import Project, Bedroom, Characteristic, MasterPlan, Photo, PriceList, Type, TypePhoto, Design, PhotoDesign
+from .models import Project, Characteristic, MasterPlan, Photo, PriceList, Type, TypePhoto, Design, PhotoDesign
 
 
 
 
-class BedroomSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Bedroom
-        fields = '__all__'
+
 
 class CharacteristicSerializer(serializers.ModelSerializer):
     class Meta:
@@ -81,7 +78,6 @@ class PriceListSerializer(serializers.ModelSerializer):
         return representation
 
 class ProjectSerializer(serializers.ModelSerializer):
-    count_bedrooms = BedroomSerializer(many=True, read_only=True)
     characteristic = CharacteristicSerializer(many=True, read_only=True)
     master_plan = MasterPlanSerializer(many=True, read_only=True)
     photo = PhotoSerializer(many=True, read_only=True)
@@ -92,7 +88,6 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['count_bedrooms'] = BedroomSerializer(instance.count_bedrooms.all(), many=True).data
         representation['characteristic'] = CharacteristicSerializer(instance.characteristic.all(), many=True).data
         representation['master_plan'] = MasterPlanSerializer(instance.master_plan.all(), many=True).data
         representation['photo'] = PhotoSerializer(instance.photo.all(), many=True).data

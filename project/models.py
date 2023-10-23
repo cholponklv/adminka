@@ -6,7 +6,7 @@ class Project(models.Model):
     url = models.CharField(max_length=100)
     description = models.TextField()
     count_villa = models.IntegerField()
-    count_bedrooms = models.ManyToManyField('Bedroom', blank=True)
+    count_bedrooms = models.IntegerField()
     building_area_from = models.IntegerField()
     building_area_to = models.IntegerField()
     land_area_from = models.IntegerField()
@@ -19,8 +19,6 @@ class Project(models.Model):
     photo = models.ManyToManyField('Photo', blank=True)
     
 
-class Bedroom(models.Model):
-    count = models.IntegerField()
 
 class Characteristic(models.Model):
     title = models.CharField(max_length=100)
@@ -47,6 +45,7 @@ class PriceList(models.Model):
     price = models.IntegerField()
     design = models.ForeignKey('Design',on_delete=models.CASCADE,blank=True)
     project = models.ForeignKey('Project',on_delete=models.CASCADE,blank=True,null=True)
+    is_active = models.BooleanField(default=True)
 
 
 class Type(models.Model):
@@ -66,3 +65,8 @@ class Design(models.Model):
 
 class PhotoDesign(models.Model):
     photo = models.ImageField(upload_to='photo_design/')
+
+class Archive(models.Model):
+    project = models.OneToOneField('Project', on_delete=models.CASCADE)
+    archived_on = models.DateTimeField(auto_now_add=True)
+

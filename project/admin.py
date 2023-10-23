@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Bedroom, Characteristic, MasterPlan, Photo, PriceList, Type, TypePhoto, Design, PhotoDesign
+from .models import Project, Characteristic, MasterPlan, Photo, PriceList, Type, TypePhoto, Design, PhotoDesign,Archive
 
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'url', 'description')  
@@ -10,7 +10,7 @@ class PriceListAdmin(admin.ModelAdmin):
 
 # Регистрация моделей с настройками административного интерфейса
 admin.site.register(Project, ProjectAdmin)
-admin.site.register(Bedroom)
+
 admin.site.register(Characteristic)
 admin.site.register(MasterPlan)
 admin.site.register(Photo)
@@ -19,3 +19,4 @@ admin.site.register(Type)
 admin.site.register(TypePhoto)
 admin.site.register(Design)
 admin.site.register(PhotoDesign)
+admin.site.register(Archive)
