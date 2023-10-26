@@ -5,6 +5,7 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     url = models.CharField(max_length=100)
     description = models.TextField()
+    description2 = models.TextField(blank=True,null=True)
     count_villa = models.IntegerField()
     count_bedrooms = models.IntegerField()
     building_area_from = models.IntegerField()
