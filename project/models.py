@@ -4,10 +4,10 @@ from django.db import models
 class Project(models.Model):
     title = models.CharField(max_length=100)
     url = models.CharField(max_length=100)
-    description = models.TextField()
-    description2 = models.TextField(blank=True,null=True)
+    description = models.TextField(max_length=200)
+    description2 = models.TextField(max_length=150,blank=True,null=True)
     count_villa = models.IntegerField()
-    count_bedrooms = models.IntegerField()
+    count_bedrooms = models.IntegerField(max_length=1)
     building_area_from = models.IntegerField()
     building_area_to = models.IntegerField()
     land_area_from = models.IntegerField()
